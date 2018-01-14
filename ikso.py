@@ -13,11 +13,11 @@ from sklearn.svm import LinearSVC
 from sklearn.preprocessing import StandardScaler
 from detection_lib import *
 
-def extract_features(all_images, cspace='RGB', orient=9, pix_per_cell=8, cell_per_block=2, hog_channel=0, spatial=32, histbin=5):
+def extract_features(all_images, cspace='RGB', orient=9, pix_per_cell=8, cell_per_block=2, hog_channel=0, spatial=32, histbin=5, extract_features=True):
 	print('EXTRACTING COLOR FEATURES')
-	color_features = extract_color_features(all_images, spatial_size=(spatial, spatial), hist_bins=histbin)
+	color_features = extract_color_features(all_images, spatial_size=(spatial, spatial), hist_bins=histbin, extract=extract_features)
 	print('EXTRACTING HOG FEATURES')
-	hog_features = extract_hog_features(all_images, cspace=cspace, orient=orient, pix_per_cell=pix_per_cell, cell_per_block=cell_per_block, hog_channel=hog_channel)
+	hog_features = extract_hog_features(all_images, cspace=cspace, orient=orient, pix_per_cell=pix_per_cell, cell_per_block=cell_per_block, hog_channel=hog_channel, extract=extract_features)
 	all_image_features = np.hstack((color_features, hog_features))
 	return all_image_features
 
@@ -48,8 +48,11 @@ if __name__ == '__main__':
 	X = extract_features(all_images, hog_channel=hog_channel)
 	print('Vehicle Features:', X.shape)
 
-	k = extract_features(['test_image.jpg'], hog_channel=hog_channel)
-	print('Vehicle Features:', k.shape)
+	test_image = mpimg.imread('test_image.jpg')
+	test_image = test_image.astype(np.float32)/255
+
+	k = extract_features([test_image], hog_channel=hog_channel, extract_features=False)
+	print('Test Vehicle Features:', k.shape)
 
 	X_scaler = StandardScaler().fit(X)
 	scaled_X = X_scaler.transform(X)

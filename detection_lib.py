@@ -67,16 +67,18 @@ def get_hog_features(img, orient, pix_per_cell, cell_per_block, vis=False, featu
 
 # Define a function to extract features from a list of images
 # Have this function call bin_spatial() and color_hist()
-def extract_color_features(imgs, cspace='RGB', spatial_size=(32, 32),
-                        hist_bins=32, hist_range=(0, 256)):
+def extract_color_features(imgs, cspace='RGB', spatial_size=(32, 32), hist_bins=32, hist_range=(0, 256), extract=True):
     # Create a list to append feature vectors to
     features = []
 
     total_files = str(len(imgs))
     # Iterate through the list of images
     for i, file in enumerate(imgs):
-        # Read in each one by one
-        image = mpimg.imread(file)
+        if extract:
+            # Read in each one by one
+            image = mpimg.imread(file)
+        else:
+            image = file
         # apply color conversion if other than 'RGB'
         if cspace != 'RGB':
             if cspace == 'HSV':
@@ -104,14 +106,17 @@ def extract_color_features(imgs, cspace='RGB', spatial_size=(32, 32),
 # Define a function to extract features from a list of images
 # Have this function call bin_spatial() and color_hist()
 def extract_hog_features(imgs, cspace='RGB', orient=9,
-                        pix_per_cell=8, cell_per_block=2, hog_channel=0):
+                        pix_per_cell=8, cell_per_block=2, hog_channel=0, extract=True):
     # Create a list to append feature vectors to
     features = []
     total_files = str(len(imgs))
     # Iterate through the list of images
     for i, file in enumerate(imgs):
-        # Read in each one by one
-        image = mpimg.imread(file)
+        if extract:
+            # Read in each one by one
+            image = mpimg.imread(file)
+        else:
+            image = file
         # apply color conversion if other than 'RGB'
         if cspace != 'RGB':
             if cspace == 'HSV':
