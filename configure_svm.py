@@ -20,8 +20,6 @@ print('FOUND :', len(vehicle_images), 'Vehicle Images')
 print('FOUND :', len(non_vehicle_images), 'Non Vehicle Images')
 
 
-def process_image(image, params):
-
 
 
 spatial = 32
@@ -43,31 +41,31 @@ scaled_X = X_scaler.transform(X)
 # y = np.hstack( (np.ones(len(vehicle_features)), np.zeros(len(non_vehicle_features))) )
 
 
-# # Split up data into randomized training and test sets
-# rand_state = np.random.randint(0, 100)
-# X_train, X_test, y_train, y_test = train_test_split(scaled_X, y, test_size=0.2, random_state=rand_state)
+# Split up data into randomized training and test sets
+rand_state = np.random.randint(0, 100)
+X_train, X_test, y_train, y_test = train_test_split(scaled_X, y, test_size=0.2, random_state=rand_state)
 
-# print('Using spatial binning of:',spatial, 'and', histbin,'histogram bins')
-# print('Feature vector length:', len(X_train[0]))
+print('Using spatial binning of:',spatial, 'and', histbin,'histogram bins')
+print('Feature vector length:', len(X_train[0]))
 
-# # Use a linear SVC
-# svc = LinearSVC()
-# # Check the training time for the SVC
-# t=time.time()
-# svc.fit(X_train, y_train)
-# t2 = time.time()
-# print(round(t2-t, 2), 'Seconds to train SVC...')
-# # Check the score of the SVC
-# print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
-# # Check the prediction time for a single sample
-# t=time.time()
-# n_predict = 10
-# print('My SVC predicts: ', svc.predict(X_test[0:n_predict]))
-# print('For these',n_predict, 'labels: ', y_test[0:n_predict])
-# t2 = time.time()
-# print(round(t2-t, 5), 'Seconds to predict', n_predict,'labels with SVC')
+# Use a linear SVC
+svc = LinearSVC()
+# Check the training time for the SVC
+t=time.time()
+svc.fit(X_train, y_train)
+t2 = time.time()
+print(round(t2-t, 2), 'Seconds to train SVC...')
+# Check the score of the SVC
+print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
+# Check the prediction time for a single sample
+t=time.time()
+n_predict = 10
+print('My SVC predicts: ', svc.predict(X_test[0:n_predict]))
+print('For these',n_predict, 'labels: ', y_test[0:n_predict])
+t2 = time.time()
+print(round(t2-t, 5), 'Seconds to predict', n_predict,'labels with SVC')
 
-# print('SAVING MODEL')
-# with open('models/temp_model.pkl', 'wb') as f:
-#     pickle.dump([svc, X_scaler], f)
-# print('MODEL SAVED')
+print('SAVING MODEL')
+with open('models/temp_model.pkl', 'wb') as f:
+    pickle.dump([svc, X_scaler], f)
+print('MODEL SAVED')

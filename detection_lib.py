@@ -126,7 +126,6 @@ def extract_hog_features(imgs, cspace='RGB', orient=9,
                 feature_image = cv2.cvtColor(image, cv2.COLOR_RGB2YCrCb)
         else: feature_image = np.copy(image)
 
-        hog_channel=0
         # Call get_hog_features() with vis=False, feature_vec=True
         if hog_channel == 'ALL':
             hog_features = []
