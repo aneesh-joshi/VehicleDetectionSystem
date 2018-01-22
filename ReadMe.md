@@ -8,3 +8,4 @@ More details can be found in the ![write up](https://github.com/aneesh-joshi/Veh
 The video demonstrating the system can be seen ![here](https://github.com/aneesh-joshi/VehicleDetectionSystem/blob/master/output_video/FinalVideoWithBuffer.mp4)
 
 Here is an example:
+![alt-text](https://github.com/aneesh-joshi/VehicleDetectionSystem/blob/master/DisplayImage.PNG)
